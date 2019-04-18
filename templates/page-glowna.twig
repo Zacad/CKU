@@ -1,0 +1,100 @@
+{% extends "base.twig" %}
+
+
+{% block content %}
+
+  <section id="glowna-content" class="grid-container">
+    <article class="post-type-{{post.post_type}} animated bounceInUp duration2 eds-on-scroll" id="post-{{post.ID}}">
+      <section class="article-content">
+        <div class="article-body">
+          {{post.content}}
+        </div>
+      </section>
+    </article>
+  </section>
+
+  <section id="oferta" class="grid-container oferta">
+        <div class="grid-x" >
+          <div class="small-12 medium-8 cell  animated fadeInLeft duration2 eds-on-scroll oferta-container" >
+            <ul class="oferta-lista">
+              {% for typ in typy %}
+                <li class="oferta-pozycja" >
+                  <button data-open="{{ typ.slug }}">{{ typ.name}}</button>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="small-12 medium-4 cell animated fadeInRight duration2 eds-on-scroll">
+            <img src="{{ oferta_img }}">
+          </div>
+
+
+            {% for key,szkola in oferta %}
+              <div class="large reveal" id="{{ key }}" data-reveal data-close-on-click="true" data-animation-in="fade-in" data-animation-out="fade-out">
+                {% if szkola|length > 1 %}
+                  <ul>
+                    {% for kurs in szkola %}
+                      <li><a href="{{ kurs.link}}">{{ kurs.title }}</a></li>
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  {{ szkola|first.content }}
+                {% endif %}
+                <button class="close-button" data-close aria-label="Close modal" type="button">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            {% endfor %}
+
+      </div>
+  </section>
+
+  <section id="strefa-sluchacza">
+    <div class="grid-container">
+      <div class="grid-x">
+        <div class="small-12 medium-4 animated fadeInRight duration2 eds-on-scroll">
+          <img src="{{ strefa_img }}">
+        </div>
+
+        <div class="small-12 medium-8 animated fadeInRight duration2 eds-on-scroll">
+          <div class="grid-x grid-padding-x grid-margin-x small-up-2 medium-up-3">
+            {% for pozycja in strefa %}
+            <div class="cell strefa-pozycja">
+              <a href="{{ pozycja.link }}">
+                <img src="{{pozycja.thumbnail.src}}" />
+                <p>{{ pozycja.title }}</p>
+              </a>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+    <div class="parallax-window" data-parallax="scroll" data-image-src="{{ parallax }}"></div>
+
+  <section id="aktualnosci" class="grid-container aktualnosci">
+    <div class="grid-x grid-padding-x">
+      <div class="small-12 medium-8 cell animated fadeInLeft duration1 eds-on-scroll">
+
+		<div class="grid-x grid-padding-x small-up-1 medium-up-2">
+			{% for news in newsy %}
+			  <div class="cell">
+			  {% include ['tease-news.twig', 'tease.twig'] %}
+			  </div>
+			{% endfor %}
+        </div>
+
+      </div>
+
+      <aside class=" boczny small-12 medium-4 cell animated fadeInRight duration1 eds-on-scroll">
+        {{ primary_sidebar }}
+      </aside>
+    </div>
+
+
+
+{% endblock %}

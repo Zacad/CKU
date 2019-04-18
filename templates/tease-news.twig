@@ -1,0 +1,16 @@
+<article class="tease tease-{{news.post_type}}" id="tease-{{news.ID}}">
+
+  {% block content %}
+      {% if news.thumbnail.src %}
+        <div class="news-thumbnail">
+  			     <img src="{{news.thumbnail.src}}" />
+        </div>
+  		{% endif %}
+      <h3 class="h3"><a href="{{news.link}}">{{news.title}}</a></h3>
+      <time>{{news.date}}</time>
+  		<p>{{news.get_preview(25)}}</p>
+
+
+  {% endblock %}
+
+</article>
